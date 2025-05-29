@@ -23,15 +23,11 @@ const nextConfig = {
     ]
   },
   webpack: (config, { dev, isServer }) => {
-    // Optimisations webpack personnalisées
-    if (!dev && !isServer) {
-      Object.assign(config.resolve.alias, {
-        'react/jsx-runtime.js': 'preact/compat/jsx-runtime',
-        react: 'preact/compat',
-        'react-dom/test-utils': 'preact/test-utils',
-        'react-dom': 'preact/compat',
-      });
-    }
+    // Ajout de résolutions pour React
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      // Suppression des alias Preact qui causaient des problèmes
+    };
 
     return config;
   },
