@@ -111,7 +111,7 @@ const ChatWindow: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const handleSendMessage = async (message: string) => {
+  const handleSendMessage = async (message: string, botResponse?: string) => {
     if (isLoading) return;
 
     const newUserMessage: Message = {
@@ -125,33 +125,60 @@ const ChatWindow: React.FC = () => {
     setIsInConversation(true);
 
     try {
-      const detectedLanguage = await detectLanguage(message);
-      if (detectedLanguage !== currentLanguage) {
-        setCurrentLanguage(detectedLanguage);
-      }
-      
-      const response = await queryGemini(message, knowledgeBase, detectedLanguage);
-      const botMessageId = Date.now() + 1;
-      
-      // Ajouter la réponse avec effet de frappe rapide
-      let currentText = '';
-      const textArray = response.split('');
-      
-      setMessages((prev) => [...prev, {
-        id: botMessageId,
-        text: '',
-        isUser: false,
-        isTyping: true
-      }]);
+      // Si une réponse du bot est fournie (depuis l'API Gemini), l'utiliser directement
+      if (botResponse) {
+        const botMessageId = Date.now() + 1;
+        
+        // Ajouter la réponse avec effet de frappe rapide
+        let currentText = '';
+        const textArray = botResponse.split('');
+        
+        setMessages((prev) => [...prev, {
+          id: botMessageId,
+          text: '',
+          isUser: false,
+          isTyping: true
+        }]);
 
-      for (let i = 0; i < textArray.length; i++) {
-        await new Promise(resolve => setTimeout(resolve, 5));
-        currentText += textArray[i];
-        setMessages((prev) => prev.map(msg => 
-          msg.id === botMessageId 
-            ? { ...msg, text: currentText, isTyping: false }
-            : msg
-        ));
+        for (let i = 0; i < textArray.length; i++) {
+          await new Promise(resolve => setTimeout(resolve, 5));
+          currentText += textArray[i];
+          setMessages((prev) => prev.map(msg => 
+            msg.id === botMessageId 
+              ? { ...msg, text: currentText, isTyping: false }
+              : msg
+          ));
+        }
+      } else {
+        // Sinon, utiliser l'API Gemini normale
+        const detectedLanguage = await detectLanguage(message);
+        if (detectedLanguage !== currentLanguage) {
+          setCurrentLanguage(detectedLanguage);
+        }
+        
+        const response = await queryGemini(message, knowledgeBase, detectedLanguage);
+        const botMessageId = Date.now() + 1;
+        
+        // Ajouter la réponse avec effet de frappe rapide
+        let currentText = '';
+        const textArray = response.split('');
+        
+        setMessages((prev) => [...prev, {
+          id: botMessageId,
+          text: '',
+          isUser: false,
+          isTyping: true
+        }]);
+
+        for (let i = 0; i < textArray.length; i++) {
+          await new Promise(resolve => setTimeout(resolve, 5));
+          currentText += textArray[i];
+          setMessages((prev) => prev.map(msg => 
+            msg.id === botMessageId 
+              ? { ...msg, text: currentText, isTyping: false }
+              : msg
+          ));
+        }
       }
     } catch (error) {
       console.error('Erreur lors de l\'envoi du message:', error);

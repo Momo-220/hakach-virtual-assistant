@@ -1,12 +1,13 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { GEMINI_API_KEY } from '../config/gemini';
+import axios from 'axios';
 
 // Initialiser l'API Google Generative AI
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
 // Type pour les langues prises en charge
-export type SupportedLanguage = 'fr' | 'en' | 'es' | 'de' | 'ar';
+export type SupportedLanguage = 'fr' | 'en' | 'es' | 'de' | 'ar' | 'tr';
 
 // Langues prises en charge
 export const supportedLanguages: Record<SupportedLanguage, string> = {
@@ -14,7 +15,8 @@ export const supportedLanguages: Record<SupportedLanguage, string> = {
   en: 'English',
   es: 'Español',
   de: 'Deutsch',
-  ar: 'العربية'
+  ar: 'العربية',
+  tr: 'Türkçe'
 };
 
 // Messages de bienvenue par langue
@@ -102,7 +104,30 @@ Soy Hakach, tu asistente virtual.
 Hallo!
 Ich bin Hakach, Ihr virtueller Assistent.
 
-أنا هنا لمساعدتك في جميع تحويلاتك المالية. لا تتردد في طرح أي أسئلة حول خدماتنا وأسعارنا أو كيفية عمل التحويلات. كيف يمكنني مساعدتك اليوم؟ 😊`
+Merhaba!
+Ben Hakach, sanal asistanınızım.
+
+أنا هنا لمساعدتك في جميع تحويلاتك المالية. لا تتردد في طرح أي أسئلة حول خدماتنا وأسعارنا أو كيفية عمل التحويلات. كيف يمكنني مساعدتك اليوم؟ 😊`,
+
+  tr: `👋 Merhaba!
+Ben Hakach, sanal asistanınızım.
+
+Hello!
+I am Hakach, your virtual assistant.
+
+Bonjour !
+Je suis Hakach, votre assistant virtuel.
+
+¡Hola!
+Soy Hakach, tu asistente virtual.
+
+Hallo!
+Ich bin Hakach, Ihr virtueller Assistent.
+
+!مرحباً
+.أنا هاكاش، مساعدك الافتراضي
+
+Tüm para transferlerinizde size yardımcı olmak için buradayım. Hizmetlerimiz, tarifelerimiz veya transferlerin nasıl çalıştığı hakkında herhangi bir sorunuz varsa çekinmeden sorabilirsiniz. Bugün size nasıl yardımcı olabilirim? 😊`
 };
 
 // Ajouter des réponses plus humaines et chaleureuses
@@ -132,6 +157,11 @@ export const personalizedResponses = {
       "!يسعدني رؤيتك 💫",
       "!أهلاً بك ✨",
       "!سعيدة بتواجدك هنا 🌟"
+    ],
+    tr: [
+      "Sizi görmek harika! 💫",
+      "Hoş geldiniz! ✨",
+      "Burada olmanıza sevindim! 🌟"
     ]
   },
   
@@ -160,6 +190,11 @@ export const personalizedResponses = {
       "أفهم ما تحتاج إليه 💭",
       "!فهمت 📝",
       "أرى ما تبحث عنه ✨"
+    ],
+    tr: [
+      "Ne istediğinizi anlıyorum 💭",
+      "Anladım! 📝",
+      "Aradığınızı görüyorum ✨"
     ]
   },
   
@@ -188,6 +223,11 @@ export const personalizedResponses = {
       "!هل لديك أسئلة أخرى؟ أنا هنا لمساعدتك 🌟",
       "لا تتردد في السؤال إذا كنت بحاجة إلى مزيد من المعلومات 💫",
       "أنا هنا إذا كنت ترغب في معرفة المزيد ✨"
+    ],
+    tr: [
+      "Başka sorularınız var mı? Size rehberlik etmek için buradayım! 🌟",
+      "Daha fazla bilgiye ihtiyacınız varsa sormaktan çekinmeyin 💫",
+      "Daha fazla bilgi almak istiyorsanız buradayım ✨"
     ]
   }
 };
@@ -202,17 +242,17 @@ export const getRandomResponse = (category: keyof typeof personalizedResponses, 
 export async function detectLanguage(text: string): Promise<SupportedLanguage> {
   try {
     const result = await model.generateContent(`
-    Détecte la langue utilisée dans ce texte et réponds uniquement avec le code ISO de la langue (fr, en, es, de, ar) sans explication supplémentaire.
+    Détecte la langue utilisée dans ce texte et réponds uniquement avec le code ISO de la langue (fr, en, es, de, ar, tr) sans explication supplémentaire.
     
     Texte: "${text}"
     
-    Réponds uniquement avec "fr", "en", "es", "de", ou "ar".
+    Réponds uniquement avec "fr", "en", "es", "de", "ar", ou "tr".
     `);
     const detectedLang = result.response.text().trim().toLowerCase();
     
     // Vérifier si la langue détectée est prise en charge
     if (detectedLang === 'fr' || detectedLang === 'en' || detectedLang === 'es' || 
-        detectedLang === 'de' || detectedLang === 'ar') {
+        detectedLang === 'de' || detectedLang === 'ar' || detectedLang === 'tr') {
       return detectedLang as SupportedLanguage;
     }
     
@@ -276,9 +316,74 @@ Réponds comme une vraie conseillère bancaire professionnelle, avec naturel et 
       en: "😔 I apologize, I encountered a technical issue. Could you rephrase your question? I'll do my best to help you. 🙏",
       es: "😔 Lo siento, encontré un problema técnico. ¿Podrías reformular tu pregunta? Haré mi mejor esfuerzo para ayudarte. 🙏",
       de: "😔 Entschuldigung, ich bin auf ein technisches Problem gestoßen. Könnten Sie Ihre Frage anders formulieren? Ich werde mein Bestes tun, um Ihnen zu helfen. 🙏",
-      ar: "😔 عذراً، واجهت مشكلة تقنية. هل يمكنك إعادة صياغة سؤالك؟ سأبذل قصارى جهدي لمساعدتك. 🙏"
+      ar: "😔 عذراً، واجهت مشكلة تقنية. هل يمكنك إعادة صياغة سؤالك؟ سأبذل قصارى جهدي لمساعدتك. 🙏",
+      tr: "😔 Üzgünüm, teknik bir sorunla karşılaştım. Sorunuzu farklı şekilde ifade edebilir misiniz? Size yardımcı olmak için elimden geleni yapacağım. 🙏"
     };
     
     return errorMessages[language];
   }
 } 
+
+const BASE_URL = '/api/gemini';
+
+export interface GeminiResponse {
+  success: boolean;
+  data: any;
+  error?: string;
+}
+
+export const geminiService = {
+  async getCorridorData(): Promise<GeminiResponse> {
+    try {
+      console.log('Fetching corridor data...');
+      const response = await axios.get(`${BASE_URL}/corridor`, {
+        timeout: 10000,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log('Corridor data response:', response.data);
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.error('Error fetching corridor data:', error);
+      return { success: false, data: null, error: 'Erreur lors de la récupération des données du corridor' };
+    }
+  },
+
+  async getOrderQuery(): Promise<GeminiResponse> {
+    try {
+      console.log('Fetching order query data...');
+      const response = await axios.get(`${BASE_URL}/order-query`, {
+        timeout: 10000,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log('Order query data response:', response.data);
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.error('Error fetching order query data:', error);
+      return { success: false, data: null, error: 'Erreur lors de la récupération des données de commande' };
+    }
+  },
+
+  async getRates(): Promise<GeminiResponse> {
+    try {
+      console.log('Fetching rates data...');
+      const response = await axios.get(`${BASE_URL}/rates`, {
+        timeout: 10000,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log('Rates data response:', response.data);
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.error('Error fetching rates data:', error);
+      return { success: false, data: null, error: 'Erreur lors de la récupération des taux' };
+    }
+  }
+}; 
