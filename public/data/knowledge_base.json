@@ -1,11 +1,47 @@
 [
   {
-    "question": "What is Hakach Transfert?",
+    "question": "Qu'est ce que Hakach Transfert ?",
     "answer": "Hakach Transfert offre une plateforme facile à utiliser, garantissant des paiements et transfert d'argent plus rapides avec des frais réduits, et assure des transactions 100% sécurisées."
   },
   {
+    "question": "Sur combien de devises puis-je transferer de l'argent ?",
+    "answer": "Envoyez de l'argent à vos amis et à votre famille en toute confiance. Plus de 180 pays et 30 devises supportés par Hakach Transfert."
+  },
+  {
+    "question": "Comment puis-je télécharger l'application Hakach ?",
+    "answer": "Vous pouvez télécharger l'application Hakach depuis le Google Play Store ou l'Apple App Store en recherchant 'Hakach'."
+  },
+  {
+    "question": "Hakach est-il disponible sur iOS et Android ?",
+    "answer": "Oui, Hakach est disponible sur les deux plateformes. Téléchargez l'application depuis le Play Store pour Android ou l'App Store pour iOS."
+  },
+  {
+    "question": "Comment puis-je m'inscrire sur Hakach ?",
+    "answer": "Pour vous inscrire, téléchargez l'application, ouvrez-la et suivez les instructions pour créer un compte en fournissant votre numéro de téléphone et d'autres informations nécessaires."
+  },
+  {
+    "question": "Comment puis-je vérifier mon compte Hakach ?",
+    "answer": "Après l'inscription, vous recevrez un code de vérification par SMS. Entrez ce code dans l'application pour vérifier votre compte."
+  },
+  {
+    "question": "Comment puis-je réinitialiser mon mot de passe Hakach ?",
+    "answer": "Si vous avez oublié votre mot de passe, utilisez l'option 'Mot de passe oublié' sur l'écran de connexion pour recevoir un lien de réinitialisation par e-mail."
+  },
+  {
+    "question": "Quels documents sont nécessaires pour s'inscrire ?",
+    "answer": "Vous aurez besoin d'un numéro de téléphone valide, d'une adresse mail, et, selon votre pays, d'une pièce d'identité ou d'autres informations personnelles pour vérifier votre identité."
+  },
+  {
+    "question": "Hakach Transfert est-il gratuit ?",
+    "answer": "L'inscription et la création de compte sont gratuites. Aucun frais n'est soustrait pour l'inscription."
+  },
+  {
+    "question": "Quelles operations puis-je operer sur Hakach Transfert ?",
+    "answer": "Sur notre application mobile ou sur le site Hakach, vous pouvez envoyer de l'argent vers l'Afrique, recevoir, verfiez le taux de change directement, ou meme effectuer un transfert a vous meme."
+  },
+  {
     "question": "Comment puis-je envoyer de l'argent avec Hakach ?",
-    "answer": "Pour envoyer de l'argent, ouvrez l'application, cliquez sur l'option 'Envoyer de l'argent', entrez le montant et renseignez le les infos du destinataire, puis confirmez le transfert."
+    "answer": "Pour envoyer de l'argent, ouvrez l'application, cliquez sur l'option 'Envoyer de l'argent', entrez le montant et renseignez les infos du destinataire, puis confirmez le transfert."
   },
   {
     "question": "Hakach est-il sécurisé ?",
@@ -17,26 +53,106 @@
   },
   {
     "question": "Combien de temps prend un transfert ?",
-    "answer": "Les transferts sont généralement traités instantanément, mais selon le pays et la méthode, cela peut prendre quelques heures."
+    "answer": "Les transferts sont généralement traités instantanément, mais selon le pays et la méthode, cela peut prendre quelques instants."
   },
   {
     "question": "Quels sont les frais pour un transfert ?",
-    "answer": "Les frais varient selon le montant et le pays. L'application affiche les frais avant chaque envoi."
+    "answer": "Les frais varient selon le montant et le pays. L’application affiche les frais avant chaque envoi."
   },
   {
     "question": "Puis-je recevoir de l'argent directement sur mon compte bancaire ?",
-    "answer": "Oui. Les bénéficiaires peuvent recevoir l'argent sur leur compte mobile, bancaire ou en retrait direct selon leur pays."
-  },
-  {
-    "question": "Comment créer un compte ?",
-    "answer": "Téléchargez l'application Hakach, cliquez sur « S'inscrire » et suivez les étapes. Vous aurez besoin d'un numéro de téléphone et d'une pièce d'identité valide."
+    "answer": "Oui. Les bénéficiaires peuvent recevoir l’argent sur leur compte mobile, bancaire ou en retrait direct selon leur pays."
   },
   {
     "question": "Mon transfert a échoué, que faire ?",
     "answer": "Si un transfert échoue, vérifiez votre transaction. Sinon, contactez notre support via WhatsApp ou email."
   },
   {
-    "question": "Que puis-je faire si j'ai un problème ?",
+    "question": "Que puis-je faire si j’ai un problème ?",
     "answer": "Vous pouvez contacter notre équipe d'assistance par e-mail ou WhatsApp pour une assistance rapide."
+  },
+  {
+    "question": "Comment puis-je annuler un transfert ?",
+    "answer": "Pour annuler un transfert, allez dans l'historique des transactions, sélectionnez le transfert et choisissez l'option d'annulation si disponible ou contactez directement notre service client."
+  },
+  {
+    "question": "Comment puis-je mettre à jour mes informations personnelles ?",
+    "answer": "Pour mettre à jour vos informations personnelles, allez dans les paramètres de votre compte et modifiez les informations nécessaires."
+  },
+  {
+    "question": "Comment puis-je contacter le support client ?",
+    "answer": "Vous pouvez contacter notre support client via WhatsApp ou par e-mail sur notre adresse mail."
+  },
+  {
+    "question": "Qu'est ce qui garantit la fiabilite de Hakach Transfert ?",
+    "answer": "Nous sommes agréés par FINTRAC au Canada et enregistrés auprès de régulateurs tels que la Cellule Nationale de Traitement des Informations Financières du Bénin (CENTIF) et le Bureau de Connaissance et de Suivi des FinTech (BCSF) de la BCEAO"
+  },
+  {
+    "question": "Le site de Hakach est il uniquement dedie au transactions ?",
+    "answer": "Non, sur le site de Hakach, vous pouvez également trouver des informations sur nos services, les pays pris en charge, des asctuces ou informations utiles qui vous permettent d'eviter des fraudes en lignes."
+  },
+  {
+    "question": "Comment puis-je me protéger contre les fraudes en ligne ?",
+    "answer": "Pour vous protéger contre les fraudes, ne partagez jamais vos informations de compte, utilisez des mots de passe forts, et vérifiez toujours l'authenticité des demandes de transfert."
+  },
+  {
+    "question": "Comment puis je rester sur l'actualite de Hakach ?",
+    "answer": "Pour rester informé des dernières nouvelles et mises à jour de Hakach, suivez-nous sur nos réseaux sociaux. Nous publions régulièrement des informations sur nos services, promotions et bien de nouvelles via Whatsapp ou par Notification Push."
+  },
+  {
+    "question": "Hakach Transfert est-il dependant d'autres acteurs, ou en partenariat avec d'autres acteurs ?",
+    "answer": "Oui, Hakach Transfert collabore avec des partenaires locaux et internationaux pour assurer des transferts d'argent rapides et sécurisés. Nous travaillons avec des banques et des opérateurs de téléphonie mobile pour faciliter les transactions. n partenariat avec de nombreux agrégateurs de paiements et opérateurs de mobile money, nous offrons des services de transfert d'argent fluides, promouvant l'inclusion financière et soutenant la transformation numérique des services financiers."
+  },
+  {
+    "question": "Hakach Transfert est-il un service de transfert d'argent peer-to-peer ?",
+    "answer": "Oui, Hakach Transfert permet aux utilisateurs d'envoyer de l'argent directement à d'autres personnes, que ce soit pour des paiements personnels ou professionnels, en toute sécurité et rapidement."
+  },
+  {
+    "question": "Est-ce que Hakach Transfert propose des prêts ou du crédit ?",
+    "answer": "Non, Hakach Transfert ne propose pas de services de prêt, de crédit ou de financement. Notre activité est exclusivement centrée sur le transfert sécurisé d'argent."
+  },
+  {
+    "question": "Puis-je acheter ou vendre des cryptomonnaies avec Hakach Transfert ?",
+    "answer": "Non. Hakach Transfert ne prend pas en charge les transactions en cryptomonnaies. Nous traitons uniquement les devises officielles, dans un cadre sécurisé et réglementé."
+  },
+  {
+    "question": "Hakach Transfert est-il une banque ?",
+    "answer": "Non, Hakach Transfert n’est pas une banque. Nous sommes un prestataire de services financiers qui collabore avec des institutions agréées pour faciliter les transferts d’argent."
+  },
+  {
+    "question": "Puis-je payer mes factures ou faire des achats en ligne via Hakach Transfert ?",
+    "answer": "Pas pour le moment. Hakach Transfert est actuellement dédié aux transferts d’argent entre particuliers. Le paiement de factures pourrait être ajouté dans le futur."
+  },
+  {
+    "question": "Est-ce que Hakach Transfert utilise des systèmes informels ou illégaux ?",
+    "answer": "Absolument pas. Hakach Transfert respecte toutes les normes légales et réglementaires. Nous opérons uniquement avec des partenaires financiers vérifiés et fiables."
+  },
+  {
+    "question": "Est-ce que Hakach Transfert conserve l’argent des clients ?",
+    "answer": "Non. Hakach Transfert ne garde pas votre argent. Les transferts sont traités immédiatement via nos partenaires agréés. Nous ne fonctionnons pas comme un compte de dépôt."
+  },
+  {
+    "question": "Peut-on transférer de l’argent à des fins illégales via Hakach Transfert ?",
+    "answer": "Non. Toute tentative d’usage illégal (fraude, blanchiment, financement interdit) est bloquée. Hakach Transfert applique des contrôles stricts pour garantir la conformité."
+  },
+  {
+    "question": "Puis-je envoyer de l’argent sans fournir de pièce d’identité ?",
+    "answer": "Non. Pour respecter les lois anti-blanchiment, une pièce d’identité valide est toujours exigée lors d’un transfert avec Hakach Transfert."
+  },
+  {
+    "question": "Hakach Transfert fonctionne-t-il en dehors des horaires réglementaires ?",
+    "answer": "Non. Bien que nos plateformes soient accessibles 24h/24, les opérations sont validées selon les horaires autorisés par les institutions partenaires."
+  },
+  {
+    "question": "Proposez-vous un service de change ou de devises étrangères ?",
+    "answer": "Oui. Tout a fait, Hakach Transfert fournit des services de change. Nos transactions sont effectuées dans les devises prises en charge par nos pays partenaires."
+  },
+  {
+    "question": "Comment puis-je vérifier le statut de mon transfert avec Hakach Transfert ?",
+    "answer": "Une fois votre transfert effectué, vous recevez un reçu a partir duquel vous pouvez suivre l'etat de votre transfert. Lorsque la transaction sera terminee vous recevrez egalement un message via WhatsApp."
+  },
+  {
+    "question": "Que faire si mon transfert prend plus de temps que prévu ?",
+    "answer": "Si votre transfert est en attente ou prend plus de temps que d’habitude, verifiez d'abord que vous n'avez pas effectue un transfert par erreur ou si toutes les informations que vous avez inserees sont correctes. SI tout est ok, contactez notre service client. Nos équipes vérifieront immédiatement l’état de la transaction et vous tiendront informé."
   }
-] 
+]

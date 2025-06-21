@@ -10,6 +10,14 @@ module.exports = {
       colors: {
         primary: '#ff9e0b',
       },
+      screens: {
+        'xs': '375px',
+        '2xl': '1536px',
+        '3xl': '1920px',
+      },
+      spacing: {
+        '18': '4.5rem',
+      },
     },
   },
   plugins: [],

@@ -1,7 +1,84 @@
 "use client";
 
 import React, { useState, KeyboardEvent } from 'react';
-import { geminiService, detectLanguage, SupportedLanguage } from '../services/geminiService';
+import { geminiService, detectLanguage, SupportedLanguage, queryGemini } from '../services/geminiService';
+
+// Base de connaissances simple pour les questions générales
+const knowledgeBase = [
+  {
+    question: "Qu'est-ce que Hakach ?",
+    answer: "Hakach est un service de transfert d'argent rapide et sécurisé qui vous permet d'envoyer de l'argent dans le monde entier."
+  }
+];
+
+// Mappage des pays vers leurs codes de devise
+const countryCurrencyMap: Record<string, string> = {
+  // Français
+  'france': 'EUR', 'nigeria': 'NGN', 'cameroun': 'XAF', 'turquie': 'TRY', 'türkiye': 'TRY',
+  'benin': 'XOF', 'niger': 'XOF', 'togo': 'XOF', 'mali': 'XOF', 'burkina faso': 'XOF',
+  'russie': 'RUB', 'etats-unis': 'USD', 'états-unis': 'USD',
+  
+  // Anglais
+  'turkey': 'TRY', 'russia': 'RUB', 'united states': 'USD', 'usa': 'USD', 'america': 'USD',
+  
+  // Espagnol
+  'turquía': 'TRY', 'rusia': 'RUB', 'estados unidos': 'USD',
+  
+  // Allemand
+  'türkei': 'TRY', 'russland': 'RUB', 'vereinigte staaten': 'USD',
+  
+  // Arabe
+  'تركيا': 'TRY', 'روسيا': 'RUB', 'الولايات المتحدة': 'USD',
+  
+  // Turc
+  'fransa': 'EUR', 'rusya': 'RUB', 'amerika': 'USD', 'amerika birleşik devletleri': 'USD'
+};
+
+// Messages pour demander les pays
+const countryQuestions = {
+  fr: {
+    askOrigin: "💰 **Pour vous donner le taux de change exact**, j'ai besoin de quelques informations :\n\n📍 **De quel pays souhaitez-vous envoyer de l'argent ?**\n\n*Exemples : France, Nigeria, Turquie, Cameroun, etc.*",
+    askDestination: (origin: string) => `✅ **Pays d'envoi :** ${origin}\n\n🎯 **Dans quel pays se trouve le destinataire ?**\n\n*Exemples : Nigeria, Cameroun, France, etc.*`,
+    invalidCountry: "❌ **Pays non reconnu.** Veuillez indiquer un pays valide parmi nos destinations supportées.",
+    rateResult: (origin: string, destination: string, rate: number, primaryCur: string, secondaryCur: string) => 
+      `💱 **Taux de change ${origin} → ${destination}**\n\n💰 **1 ${primaryCur} = ${rate} ${secondaryCur}**\n\n📊 *Taux mis à jour en temps réel*\n💡 *Utilisez ce taux pour calculer votre transfert*`
+  },
+  en: {
+    askOrigin: "💰 **To give you the exact exchange rate**, I need some information:\n\n📍 **From which country do you want to send money?**\n\n*Examples: France, Nigeria, Turkey, Cameroon, etc.*",
+    askDestination: (origin: string) => `✅ **Sending country:** ${origin}\n\n🎯 **In which country is the recipient located?**\n\n*Examples: Nigeria, Cameroon, France, etc.*`,
+    invalidCountry: "❌ **Country not recognized.** Please specify a valid country among our supported destinations.",
+    rateResult: (origin: string, destination: string, rate: number, primaryCur: string, secondaryCur: string) => 
+      `💱 **Exchange rate ${origin} → ${destination}**\n\n💰 **1 ${primaryCur} = ${rate} ${secondaryCur}**\n\n📊 *Real-time updated rates*\n💡 *Use this rate to calculate your transfer*`
+  },
+  es: {
+    askOrigin: "💰 **Para darte el tipo de cambio exacto**, necesito información:\n\n📍 **¿Desde qué país quieres enviar dinero?**\n\n*Ejemplos: Francia, Nigeria, Turquía, Camerún, etc.*",
+    askDestination: (origin: string) => `✅ **País de envío:** ${origin}\n\n🎯 **¿En qué país está el destinatario?**\n\n*Ejemplos: Nigeria, Camerún, Francia, etc.*`,
+    invalidCountry: "❌ **País no reconocido.** Por favor especifica un país válido entre nuestros destinos soportados.",
+    rateResult: (origin: string, destination: string, rate: number, primaryCur: string, secondaryCur: string) => 
+      `💱 **Tipo de cambio ${origin} → ${destination}**\n\n💰 **1 ${primaryCur} = ${rate} ${secondaryCur}**\n\n📊 *Tasas actualizadas en tiempo real*\n💡 *Usa esta tasa para calcular tu transferencia*`
+  },
+  de: {
+    askOrigin: "💰 **Um Ihnen den genauen Wechselkurs zu geben**, benötige ich Informationen:\n\n📍 **Aus welchem Land möchten Sie Geld senden?**\n\n*Beispiele: Frankreich, Nigeria, Türkei, Kamerun, etc.*",
+    askDestination: (origin: string) => `✅ **Sendeland:** ${origin}\n\n🎯 **In welchem Land befindet sich der Empfänger?**\n\n*Beispiele: Nigeria, Kamerun, Frankreich, etc.*`,
+    invalidCountry: "❌ **Land nicht erkannt.** Bitte geben Sie ein gültiges Land aus unseren unterstützten Zielen an.",
+    rateResult: (origin: string, destination: string, rate: number, primaryCur: string, secondaryCur: string) => 
+      `💱 **Wechselkurs ${origin} → ${destination}**\n\n💰 **1 ${primaryCur} = ${rate} ${secondaryCur}**\n\n📊 *Echtzeitaktualisierte Kurse*\n💡 *Verwenden Sie diesen Kurs zur Berechnung Ihrer Überweisung*`
+  },
+  ar: {
+    askOrigin: "💰 **لإعطائك سعر الصرف الدقيق**، أحتاج بعض المعلومات:\n\n📍 **من أي بلد تريد إرسال المال؟**\n\n*أمثلة: فرنسا، نيجيريا، تركيا، الكاميرون، إلخ*",
+    askDestination: (origin: string) => `✅ **بلد الإرسال:** ${origin}\n\n🎯 **في أي بلد يقع المستلم؟**\n\n*أمثلة: نيجيريا، الكاميرون، فرنسا، إلخ*`,
+    invalidCountry: "❌ **البلد غير معترف به.** يرجى تحديد بلد صالح من وجهاتنا المدعومة.",
+    rateResult: (origin: string, destination: string, rate: number, primaryCur: string, secondaryCur: string) => 
+      `💱 **سعر الصرف ${origin} → ${destination}**\n\n💰 **1 ${primaryCur} = ${rate} ${secondaryCur}**\n\n📊 *أسعار محدثة في الوقت الفعلي*\n💡 *استخدم هذا السعر لحساب تحويلك*`
+  },
+  tr: {
+    askOrigin: "💰 **Size tam döviz kurunu verebilmek için** bazı bilgilere ihtiyacım var:\n\n📍 **Hangi ülkeden para göndermek istiyorsunuz?**\n\n*Örnekler: Fransa, Nijerya, Türkiye, Kamerun, vb.*",
+    askDestination: (origin: string) => `✅ **Gönderen ülke:** ${origin}\n\n🎯 **Alıcı hangi ülkede bulunuyor?**\n\n*Örnekler: Nijerya, Kamerun, Fransa, vb.*`,
+    invalidCountry: "❌ **Ülke tanınmadı.** Lütfen desteklenen hedeflerimiz arasından geçerli bir ülke belirtin.",
+    rateResult: (origin: string, destination: string, rate: number, primaryCur: string, secondaryCur: string) => 
+      `💱 **Döviz kuru ${origin} → ${destination}**\n\n💰 **1 ${primaryCur} = ${rate} ${secondaryCur}**\n\n📊 *Gerçek zamanlı güncellenmiş kurlar*\n💡 *Transferinizi hesaplamak için bu kuru kullanın*`
+  }
+};
 
 // Mots-clés pour chaque langue
 const keywords = {
@@ -160,6 +237,15 @@ interface ChatInputProps {
   isLoading: boolean;
 }
 
+// État pour gérer le processus de demande de taux
+interface RateRequestState {
+  isActive: boolean;
+  step: 'origin' | 'destination' | null;
+  originCountry?: string;
+  originCurrency?: string;
+  language: SupportedLanguage;
+}
+
 // Fonction pour détecter les mots-clés dans le message
 const detectKeywords = (message: string, language: SupportedLanguage) => {
   const lowerMessage = message.toLowerCase();
@@ -173,8 +259,25 @@ const detectKeywords = (message: string, language: SupportedLanguage) => {
   return null;
 };
 
+// Fonction pour trouver la devise d'un pays
+const findCountryCurrency = (countryName: string): { country: string; currency: string } | null => {
+  const normalizedInput = countryName.toLowerCase().trim();
+  
+  for (const [country, currency] of Object.entries(countryCurrencyMap)) {
+    if (country.toLowerCase().includes(normalizedInput) || normalizedInput.includes(country.toLowerCase())) {
+      return { country: country, currency: currency };
+    }
+  }
+  return null;
+};
+
 const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }) => {
   const [message, setMessage] = useState('');
+  const [rateRequest, setRateRequest] = useState<RateRequestState>({
+    isActive: false,
+    step: null,
+    language: 'fr'
+  });
 
   const handleSend = async () => {
     if (message.trim() && !isLoading) {
@@ -182,6 +285,12 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }) => {
       setMessage(''); // Vider le champ immédiatement
       
       try {
+        // Si on est dans un processus de demande de taux
+        if (rateRequest.isActive) {
+          await handleRateRequestFlow(userMessage);
+          return;
+        }
+
         // Détecter la langue du message
         const detectedLanguage = await detectLanguage(userMessage);
         
@@ -225,34 +334,14 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }) => {
             onSendMessage(userMessage, messages.error);
           }
         } else if (keywordCategory === 'rates') {
-          const response = await geminiService.getRates();
-          const messages = responseMessages.rates[detectedLanguage];
-          
-          if (response.success) {
-            let formattedData = '';
-            if (Array.isArray(response.data)) {
-              // Grouper les taux par devise principale
-              const groupedRates = response.data.reduce((acc: any, rate: any) => {
-                if (!acc[rate.primary_currency]) {
-                  acc[rate.primary_currency] = [];
-                }
-                acc[rate.primary_currency].push(rate);
-                return acc;
-              }, {});
-
-              formattedData = Object.entries(groupedRates).map(([primaryCurrency, rates]: [string, any]) => 
-                `💰 **${primaryCurrency}**\n${rates.map((rate: any) => 
-                  `   → ${rate.secondary_currency}: **${rate.exchange_rate}**`
-                ).join('\n')}`
-              ).join('\n\n');
-            } else {
-              formattedData = messages.noData;
-            }
-            const botResponse = `${messages.title}\n\n${formattedData}\n\n${messages.footer}`;
-            onSendMessage(userMessage, botResponse);
-          } else {
-            onSendMessage(userMessage, messages.error);
-          }
+          // Commencer le processus de demande de taux
+          setRateRequest({
+            isActive: true,
+            step: 'origin',
+            language: detectedLanguage
+          });
+          const botResponse = countryQuestions[detectedLanguage].askOrigin;
+          onSendMessage(userMessage, botResponse);
         } else {
           // Si le message ne contient pas de mots-clés spécifiques, l'envoyer normalement
           onSendMessage(userMessage);
@@ -265,6 +354,72 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }) => {
     }
   };
 
+  // Fonction pour gérer le flux de demande de taux
+  const handleRateRequestFlow = async (userMessage: string) => {
+    const { step, language, originCountry, originCurrency } = rateRequest;
+
+    if (step === 'origin') {
+      // Chercher le pays d'origine
+      const countryInfo = findCountryCurrency(userMessage);
+      
+      if (countryInfo) {
+        setRateRequest({
+          ...rateRequest,
+          step: 'destination',
+          originCountry: countryInfo.country,
+          originCurrency: countryInfo.currency
+        });
+        
+        const botResponse = countryQuestions[language].askDestination(countryInfo.country);
+        onSendMessage(userMessage, botResponse);
+      } else {
+        const botResponse = countryQuestions[language].invalidCountry;
+        onSendMessage(userMessage, botResponse);
+      }
+    } else if (step === 'destination') {
+      // Chercher le pays de destination
+      const destCountryInfo = findCountryCurrency(userMessage);
+      
+      if (destCountryInfo && originCurrency) {
+        try {
+          // Appeler l'API avec les devises spécifiques
+          const ratesResult = await geminiService.getRates(originCurrency, destCountryInfo.currency);
+          
+          if (ratesResult.success && ratesResult.data && ratesResult.data.exchange_rate) {
+            const rate = ratesResult.data.exchange_rate;
+            const botResponse = countryQuestions[language].rateResult(
+              originCountry || 'Pays d\'origine',
+              destCountryInfo.country,
+              rate,
+              originCurrency,
+              destCountryInfo.currency
+            );
+            onSendMessage(userMessage, botResponse);
+          } else {
+            const messages = responseMessages.rates[language];
+            const botResponse = messages.error;
+            onSendMessage(userMessage, botResponse);
+          }
+        } catch (error) {
+          console.error('Erreur lors de la récupération du taux:', error);
+          const messages = responseMessages.rates[language];
+          const botResponse = messages.error;
+          onSendMessage(userMessage, botResponse);
+        }
+        
+        // Réinitialiser le processus
+        setRateRequest({
+          isActive: false,
+          step: null,
+          language: 'fr'
+        });
+      } else {
+        const botResponse = countryQuestions[language].invalidCountry;
+        onSendMessage(userMessage, botResponse);
+      }
+    }
+  };
+
   const handleKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -273,13 +428,13 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }) => {
   };
 
   return (
-    <div className="relative flex items-center gap-2 bg-black/40 rounded-xl p-1">
+    <div className="relative flex items-center gap-1 sm:gap-2 bg-black/40 rounded-xl p-1">
       <textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyPress={handleKeyPress}
         placeholder="Écrivez votre message..."
-        className="flex-1 bg-transparent text-amber-50 placeholder-amber-500/50 resize-none outline-none py-3 px-4 h-[44px] max-h-[44px] overflow-y-auto scrollbar-thin scrollbar-thumb-amber-500/20 scrollbar-track-transparent"
+        className="flex-1 bg-transparent text-amber-50 placeholder-amber-500/50 resize-none outline-none py-2 sm:py-3 px-2 sm:px-4 h-[40px] sm:h-[44px] max-h-[40px] sm:max-h-[44px] text-sm sm:text-base overflow-y-auto scrollbar-thin scrollbar-thumb-amber-500/20 scrollbar-track-transparent"
         style={{
           scrollbarWidth: 'thin',
           scrollbarColor: 'rgba(245, 158, 11, 0.2) transparent'
@@ -288,7 +443,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }) => {
       <button
         onClick={handleSend}
         disabled={!message.trim() || isLoading}
-        className={`flex items-center justify-center w-[44px] h-[44px] rounded-lg transition-all duration-300 transform
+        className={`flex items-center justify-center w-[40px] h-[40px] sm:w-[44px] sm:h-[44px] rounded-lg transition-all duration-300 transform
           ${message.trim() && !isLoading 
             ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 hover:scale-105 hover:rotate-3' 
             : 'bg-amber-500/20 cursor-not-allowed'}`}
@@ -297,14 +452,14 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }) => {
         }}
       >
         {isLoading ? (
-          <svg className="animate-spin w-5 h-5 text-amber-500" viewBox="0 0 24 24">
+          <svg className="animate-spin w-4 h-4 sm:w-5 sm:h-5 text-amber-500" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
           </svg>
         ) : (
           <svg 
             viewBox="0 0 24 24" 
-            className={`w-5 h-5 ${message.trim() ? 'text-black' : 'text-amber-500/50'}`}
+            className={`w-4 h-4 sm:w-5 sm:h-5 ${message.trim() ? 'text-black' : 'text-amber-500/50'}`}
             style={{
               filter: message.trim() ? 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))' : 'none'
             }}

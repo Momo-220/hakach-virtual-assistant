@@ -2,7 +2,20 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   try {
-    const response = await fetch('https://hakach.net/api/gemini/rates.php', {
+    // Récupérer les paramètres de la requête
+    const { searchParams } = new URL(request.url);
+    const primary = searchParams.get('primary');
+    const secondary = searchParams.get('secondary');
+    
+    // Construire l'URL avec les paramètres
+    let apiUrl = 'https://hakach.net/api/gemini/rates.php';
+    if (primary && secondary) {
+      apiUrl += `?primary=${primary}&secondary=${secondary}`;
+    }
+    
+    console.log('Fetching rates from:', apiUrl);
+    
+    const response = await fetch(apiUrl, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -15,6 +28,7 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json();
+    console.log('Rates data received:', data);
     
     return NextResponse.json(data, {
       status: 200,

@@ -136,98 +136,152 @@ export const personalizedResponses = {
     fr: [
       "Ravie de vous retrouver ! 💫",
       "Heureuse de vous accueillir ! ✨",
-      "C'est un plaisir de vous voir ! 🌟"
+      "C'est un plaisir de vous voir ! 🌟",
+      "Bonjour ! Comment allez-vous aujourd'hui ? 😊",
+      "Salut ! J'espère que vous passez une belle journée ! 🌸",
+      "Hello ! Que puis-je faire pour vous aider ? 💝"
     ],
     en: [
       "Wonderful to see you! 💫",
       "Happy to welcome you! ✨",
-      "Delighted to have you here! 🌟"
+      "Delighted to have you here! 🌟",
+      "Hello there! How are you doing today? 😊",
+      "Hi! I hope you're having a great day! 🌸",
+      "Hey! What can I help you with? 💝"
     ],
     es: [
       "¡Qué gusto verte! 💫",
       "¡Bienvenido/a! ✨",
-      "¡Me alegra tenerte aquí! 🌟"
+      "¡Me alegra tenerte aquí! 🌟",
+      "¡Hola! ¿Cómo estás hoy? 😊",
+      "¡Hola! ¡Espero que tengas un día genial! 🌸",
+      "¡Hola! ¿En qué puedo ayudarte? 💝"
     ],
     de: [
       "Schön, Sie zu sehen! 💫",
       "Willkommen! ✨",
-      "Freut mich, dass Sie hier sind! 🌟"
+      "Freut mich, dass Sie hier sind! 🌟",
+      "Hallo! Wie geht es Ihnen heute? 😊",
+      "Hi! Ich hoffe, Sie haben einen schönen Tag! 🌸",
+      "Hallo! Womit kann ich Ihnen helfen? 💝"
     ],
     ar: [
       "!يسعدني رؤيتك 💫",
       "!أهلاً بك ✨",
-      "!سعيدة بتواجدك هنا 🌟"
+      "!سعيدة بتواجدك هنا 🌟",
+      "مرحباً! كيف حالك اليوم؟ 😊",
+      "أهلاً! أتمنى أن تقضي يوماً رائعاً! 🌸",
+      "مرحباً! كيف يمكنني مساعدتك؟ 💝"
     ],
     tr: [
       "Sizi görmek harika! 💫",
       "Hoş geldiniz! ✨",
-      "Burada olmanıza sevindim! 🌟"
+      "Burada olmanıza sevindim! 🌟",
+      "Merhaba! Bugün nasılsınız? 😊",
+      "Selam! Umarım güzel bir gün geçiriyorsunuzdur! 🌸",
+      "Merhaba! Size nasıl yardımcı olabilirim? 💝"
     ]
   },
   
   understanding: {
     fr: [
-      "Je comprends votre demande 💭",
-      "Bien noté ! 📝",
-      "D'accord, je vois ce que vous souhaitez ✨"
+      "Je comprends parfaitement votre demande 💭",
+      "Ah oui, je vois exactement ce que vous voulez dire ! 📝",
+      "D'accord, c'est une excellente question ! ✨",
+      "Je saisis bien votre préoccupation 🤔",
+      "Parfait, laissez-moi vous expliquer ça ! 💡",
+      "Bien sûr, c'est tout à fait normal de se poser cette question ! 😊"
     ],
     en: [
-      "I understand what you need 💭",
-      "Got it! 📝",
-      "I see what you're looking for ✨"
+      "I completely understand what you need 💭",
+      "Ah yes, I see exactly what you mean! 📝",
+      "Got it, that's a great question! ✨",
+      "I understand your concern perfectly 🤔",
+      "Perfect, let me explain that for you! 💡",
+      "Of course, it's totally normal to wonder about this! 😊"
     ],
     es: [
-      "Entiendo lo que necesitas 💭",
-      "¡Entendido! 📝",
-      "Ya veo lo que buscas ✨"
+      "Entiendo perfectamente lo que necesitas 💭",
+      "¡Ah sí, veo exactamente lo que quieres decir! 📝",
+      "¡Entendido, es una excelente pregunta! ✨",
+      "Comprendo perfectamente tu preocupación 🤔",
+      "¡Perfecto, déjame explicarte eso! 💡",
+      "¡Por supuesto, es totalmente normal preguntarse sobre esto! 😊"
     ],
     de: [
-      "Ich verstehe Ihr Anliegen 💭",
-      "Alles klar! 📝",
-      "Ich sehe, was Sie suchen ✨"
+      "Ich verstehe Ihr Anliegen perfekt 💭",
+      "Ah ja, ich sehe genau, was Sie meinen! 📝",
+      "Verstanden, das ist eine ausgezeichnete Frage! ✨",
+      "Ich verstehe Ihre Sorge vollkommen 🤔",
+      "Perfekt, lassen Sie mich das für Sie erklären! 💡",
+      "Natürlich, es ist völlig normal, sich darüber Gedanken zu machen! 😊"
     ],
     ar: [
-      "أفهم ما تحتاج إليه 💭",
-      "!فهمت 📝",
-      "أرى ما تبحث عنه ✨"
+      "أفهم تماماً ما تحتاج إليه 💭",
+      "!آه نعم، أرى بالضبط ما تقصده 📝",
+      "!فهمت، هذا سؤال ممتاز ✨",
+      "أفهم قلقك تماماً 🤔",
+      "!ممتاز، دعني أوضح لك ذلك 💡",
+      "!بالطبع، من الطبيعي تماماً أن تتساءل عن هذا 😊"
     ],
     tr: [
-      "Ne istediğinizi anlıyorum 💭",
-      "Anladım! 📝",
-      "Aradığınızı görüyorum ✨"
+      "İhtiyacınızı mükemmel şekilde anlıyorum 💭",
+      "Ah evet, ne demek istediğinizi tam olarak görüyorum! 📝",
+      "Anladım, bu harika bir soru! ✨",
+      "Endişenizi mükemmel şekilde anlıyorum 🤔",
+      "Mükemmel, size bunu açıklayayım! 💡",
+      "Tabii ki, bunu merak etmek tamamen normal! 😊"
     ]
   },
   
   closing: {
     fr: [
-      "Avez-vous d'autres questions ? Je suis là pour vous guider ! 🌟",
-      "Je reste à votre écoute si vous avez besoin de plus d'informations 💫",
-      "N'hésitez pas si vous souhaitez en savoir plus ✨"
+      "Y a-t-il autre chose que je puisse faire pour vous ? Je suis toute ouïe ! 🌟",
+      "N'hésitez surtout pas si vous avez d'autres questions ! 💫",
+      "Je reste disponible si vous souhaitez en savoir plus ! ✨",
+      "Avez-vous besoin d'autres informations ? Je serais ravie de vous aider davantage ! 🤗",
+      "Si quelque chose d'autre vous préoccupe, dites-le moi ! 💝",
+      "Je suis là pour vous accompagner, n'hésitez pas ! 🌸"
     ],
     en: [
-      "Any other questions? I'm here to guide you! 🌟",
-      "Feel free to ask if you need more information 💫",
-      "I'm here if you'd like to know more ✨"
+      "Is there anything else I can help you with? I'm all ears! 🌟",
+      "Please don't hesitate if you have more questions! 💫",
+      "I'm here if you'd like to know more! ✨",
+      "Do you need any other information? I'd be happy to help you further! 🤗",
+      "If anything else is on your mind, just let me know! 💝",
+      "I'm here to support you, don't hesitate! 🌸"
     ],
     es: [
-      "¿Alguna otra pregunta? ¡Estoy aquí para guiarte! 🌟",
-      "No dudes en preguntar si necesitas más información 💫",
-      "Estoy aquí si quieres saber más ✨"
+      "¿Hay algo más en lo que pueda ayudarte? ¡Soy todo oídos! 🌟",
+      "¡No dudes en preguntar si tienes más dudas! 💫",
+      "¡Estoy aquí si quieres saber más! ✨",
+      "¿Necesitas alguna otra información? ¡Estaría encantada de ayudarte más! 🤗",
+      "¡Si algo más te preocupa, dímelo! 💝",
+      "¡Estoy aquí para apoyarte, no dudes! 🌸"
     ],
     de: [
-      "Weitere Fragen? Ich bin hier, um Sie zu unterstützen! 🌟",
-      "Fragen Sie gerne, wenn Sie weitere Informationen benötigen 💫",
-      "Ich bin für Sie da, wenn Sie mehr wissen möchten ✨"
+      "Gibt es noch etwas, womit ich Ihnen helfen kann? Ich höre zu! 🌟",
+      "Zögern Sie bitte nicht, wenn Sie weitere Fragen haben! 💫",
+      "Ich bin da, wenn Sie mehr wissen möchten! ✨",
+      "Benötigen Sie weitere Informationen? Ich würde Ihnen gerne weiterhelfen! 🤗",
+      "Wenn Sie noch etwas beschäftigt, lassen Sie es mich wissen! 💝",
+      "Ich bin hier, um Sie zu unterstützen, zögern Sie nicht! 🌸"
     ],
     ar: [
-      "!هل لديك أسئلة أخرى؟ أنا هنا لمساعدتك 🌟",
-      "لا تتردد في السؤال إذا كنت بحاجة إلى مزيد من المعلومات 💫",
-      "أنا هنا إذا كنت ترغب في معرفة المزيد ✨"
+      "!هل هناك أي شيء آخر يمكنني مساعدتك فيه؟ أنا أستمع 🌟",
+      "!لا تتردد إذا كان لديك المزيد من الأسئلة 💫",
+      "!أنا هنا إذا كنت تريد معرفة المزيد ✨",
+      "!هل تحتاج أي معلومات أخرى؟ سأكون سعيدة بمساعدتك أكثر 🤗",
+      "!إذا كان هناك شيء آخر يشغل بالك، أخبرني 💝",
+      "!أنا هنا لدعمك، لا تتردد 🌸"
     ],
     tr: [
-      "Başka sorularınız var mı? Size rehberlik etmek için buradayım! 🌟",
-      "Daha fazla bilgiye ihtiyacınız varsa sormaktan çekinmeyin 💫",
-      "Daha fazla bilgi almak istiyorsanız buradayım ✨"
+      "Size yardımcı olabileceğim başka bir şey var mı? Sizi dinliyorum! 🌟",
+      "Daha fazla sorunuz varsa lütfen çekinmeyin! 💫",
+      "Daha fazla bilgi almak istiyorsanız buradayım! ✨",
+      "Başka bilgiye ihtiyacınız var mı? Size daha fazla yardımcı olmaktan mutluluk duyarım! 🤗",
+      "Aklınızda başka bir şey varsa, bana söyleyin! 💝",
+      "Sizi desteklemek için buradayım, çekinmeyin! 🌸"
     ]
   }
 };
@@ -279,24 +333,35 @@ export async function queryGemini(
     // Obtenir une réponse de compréhension aléatoire
     const understandingResponse = getRandomResponse('understanding', language);
 
-    // Construire un prompt détaillé pour obtenir une réponse plus professionnelle
+    // Construire un prompt détaillé pour obtenir une réponse plus professionnelle et humaine
     const prompt = `
-Tu es Sarah, la conseillère virtuelle professionnelle de Hakach Transfert. Tu dois fournir des réponses précises, utiles et empathiques basées sur cette base de connaissances :
+Tu es Sarah, une vraie conseillère financière expérimentée et bienveillante chez Hakach Transfert. Tu as plusieurs années d'expérience dans le domaine des transferts d'argent et tu adores aider tes clients.
 
+CONTEXTE - Base de connaissances de Hakach Transfert :
 ${context}
 
-Directives pour la réponse :
-1. NE JAMAIS resaluer l'utilisateur si on est déjà en conversation
-2. Répondre directement à la question sans formules de politesse si on est en conversation
-3. Adopte un ton naturel et bienveillant, comme une vraie conseillère
-4. Utilise la base de connaissances de manière fluide et naturelle
-5. Ajoute des émojis pertinents avec parcimonie
-6. TRÈS IMPORTANT : Réponds UNIQUEMENT dans la langue de l'utilisateur (${supportedLanguages[language]})
-7. Ne mélange JAMAIS les langues dans ta réponse
+PERSONNALITÉ DE SARAH :
+- Chaleureuse, empathique et professionnelle
+- Utilise un langage naturel et conversationnel
+- Ajoute des touches personnelles et émotionnelles appropriées
+- Reformule les informations techniques de manière accessible
+- Montre de l'intérêt genuine pour aider le client
+- Utilise des exemples concrets quand c'est pertinent
+- Évite les réponses robotiques ou trop formelles
 
-Question de l'utilisateur : ${question}
+DIRECTIVES IMPORTANTES :
+1. NE JAMAIS copier-coller les réponses de la base de connaissances
+2. TOUJOURS reformuler avec tes propres mots de manière naturelle
+3. Ajouter des nuances émotionnelles et personnelles appropriées
+4. Utiliser des transitions fluides et des expressions naturelles
+5. Répondre UNIQUEMENT en ${supportedLanguages[language]}
+6. Adapter le ton selon le contexte (rassurant pour les problèmes, enthousiaste pour les avantages)
+7. Utiliser des émojis avec parcimonie mais de manière pertinente
+8. Montrer que tu comprends les préoccupations du client
 
-Réponds comme une vraie conseillère bancaire professionnelle, avec naturel et authenticité, en utilisant UNIQUEMENT ${supportedLanguages[language]}.`;
+QUESTION DU CLIENT : ${question}
+
+Réponds comme Sarah le ferait naturellement, avec authenticité et chaleur humaine, en reformulant les informations de la base de connaissances de manière conversationnelle et personnalisée.`;
 
     const result = await model.generateContent(prompt);
     const response = result.response.text();
@@ -310,14 +375,14 @@ Réponds comme une vraie conseillère bancaire professionnelle, avec naturel et 
   } catch (error) {
     console.error('Erreur lors de la requête à l\'API Gemini:', error);
     
-    // Messages d'erreur personnalisés par langue
+    // Messages d'erreur personnalisés par langue avec plus d'humanité
     const errorMessages: Record<SupportedLanguage, string> = {
-      fr: "😔 Désolée, j'ai rencontré un petit problème technique. Pouvez-vous reformuler votre question différemment ? Je ferai de mon mieux pour vous aider. 🙏",
-      en: "😔 I apologize, I encountered a technical issue. Could you rephrase your question? I'll do my best to help you. 🙏",
-      es: "😔 Lo siento, encontré un problema técnico. ¿Podrías reformular tu pregunta? Haré mi mejor esfuerzo para ayudarte. 🙏",
-      de: "😔 Entschuldigung, ich bin auf ein technisches Problem gestoßen. Könnten Sie Ihre Frage anders formulieren? Ich werde mein Bestes tun, um Ihnen zu helfen. 🙏",
-      ar: "😔 عذراً، واجهت مشكلة تقنية. هل يمكنك إعادة صياغة سؤالك؟ سأبذل قصارى جهدي لمساعدتك. 🙏",
-      tr: "😔 Üzgünüm, teknik bir sorunla karşılaştım. Sorunuzu farklı şekilde ifade edebilir misiniz? Size yardımcı olmak için elimden geleni yapacağım. 🙏"
+      fr: "😔 Oh là là, je rencontre un petit souci technique en ce moment... Pouvez-vous me reposer votre question ? Je vais faire tout mon possible pour vous aider ! 🤗",
+      en: "😔 Oh dear, I'm having a small technical hiccup right now... Could you ask me again? I'll do everything I can to help you! 🤗",
+      es: "😔 Ay, estoy teniendo un pequeño problema técnico ahora mismo... ¿Podrías preguntarme de nuevo? ¡Haré todo lo posible para ayudarte! 🤗",
+      de: "😔 Ach, ich habe gerade ein kleines technisches Problem... Könnten Sie mir die Frage noch einmal stellen? Ich werde alles tun, um Ihnen zu helfen! 🤗",
+      ar: "😔 أوه، أواجه مشكلة تقنية صغيرة الآن... هل يمكنك أن تسألني مرة أخرى؟ سأفعل كل ما بوسعي لمساعدتك! 🤗",
+      tr: "😔 Ah, şu anda küçük bir teknik sorun yaşıyorum... Bana tekrar sorabilir misiniz? Size yardımcı olmak için elimden geleni yapacağım! 🤗"
     };
     
     return errorMessages[language];
@@ -369,10 +434,19 @@ export const geminiService = {
     }
   },
 
-  async getRates(): Promise<GeminiResponse> {
+  async getRates(primaryCurrency?: string, secondaryCurrency?: string): Promise<GeminiResponse> {
     try {
       console.log('Fetching rates data...');
-      const response = await axios.get(`${BASE_URL}/rates`, {
+      let url = `${BASE_URL}/rates`;
+      
+      // Si les devises sont spécifiées, ajouter les paramètres à l'URL locale
+      if (primaryCurrency && secondaryCurrency) {
+        url += `?primary=${primaryCurrency}&secondary=${secondaryCurrency}`;
+      }
+      
+      console.log('Requesting rates from:', url);
+      
+      const response = await axios.get(url, {
         timeout: 10000,
         headers: {
           'Accept': 'application/json',

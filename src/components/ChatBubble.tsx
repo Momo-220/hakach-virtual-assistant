@@ -11,8 +11,8 @@ interface ChatBubbleProps {
 
 const ChatBubble: React.FC<ChatBubbleProps> = ({ message, isUser, isTyping }) => {
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
-      <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-3 sm:mb-4`}>
+      <div className={`max-w-[90%] sm:max-w-[85%] md:max-w-[80%] rounded-2xl px-3 py-2 sm:px-4 sm:py-3 ${
         isUser 
           ? 'bg-black text-white border border-amber-500' 
           : 'bg-gradient-to-r from-amber-500 to-amber-400 text-black'
@@ -24,10 +24,10 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({ message, isUser, isTyping }) =>
             <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
           </div>
         ) : (
-          <div className="prose prose-sm dark:prose-invert max-w-none">
+          <div className="prose prose-xs sm:prose-sm dark:prose-invert max-w-none">
             <ReactMarkdown 
               components={{
-                p: ({children}) => <p className="mb-2 last:mb-0 leading-relaxed">{children}</p>,
+                p: ({children}) => <p className="mb-1 sm:mb-2 last:mb-0 leading-relaxed text-sm sm:text-base">{children}</p>,
                 strong: ({children}) => <strong className="font-semibold">{children}</strong>,
                 em: ({children}) => <em className="italic opacity-90">{children}</em>,
                 a: ({href, children}) => (
