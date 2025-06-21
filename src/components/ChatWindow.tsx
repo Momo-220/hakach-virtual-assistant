@@ -50,33 +50,18 @@ const ChatWindow: React.FC = () => {
     };
   }, [isOpen]);
 
-  // Fonction pour ajouter le message de bienvenue avec effet de frappe
-  const addWelcomeMessage = useCallback(async () => {
+  // Fonction pour ajouter le message de bienvenue sans effet de frappe
+  const addWelcomeMessage = useCallback(() => {
     const welcomeMessage = welcomeMessages[currentLanguage];
     const messageId = Date.now();
     
-    // Ajouter d'abord un message vide
+    // Ajouter directement le message complet
     setMessages([{
       id: messageId,
-      text: '',
+      text: welcomeMessage,
       isUser: false,
-      isTyping: true
+      isTyping: false
     }]);
-
-    // Simuler l'effet de frappe fluide lettre par lettre
-    let currentText = '';
-    const textArray = welcomeMessage.split('');
-    
-    for (let i = 0; i < textArray.length; i++) {
-      await new Promise(resolve => setTimeout(resolve, 50)); // 50ms par lettre pour un effet plus fluide
-      currentText += textArray[i];
-      setMessages([{
-        id: messageId,
-        text: currentText,
-        isUser: false,
-        isTyping: false
-      }]);
-    }
   }, [currentLanguage]);
 
   // Effet pour charger la base de connaissances
