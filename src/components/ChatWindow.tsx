@@ -25,7 +25,7 @@ const ChatWindow: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [knowledgeBase, setKnowledgeBase] = useState<KnowledgeItem[]>([]);
-  const [currentLanguage, setCurrentLanguage] = useState<SupportedLanguage>('fr');
+  const [currentLanguage, setCurrentLanguage] = useState<SupportedLanguage>('en');
   const [isInConversation, setIsInConversation] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
@@ -170,7 +170,7 @@ const ChatWindow: React.FC = () => {
       
       const errorMessage: Message = {
         id: Date.now() + 1,
-        text: "Je suis désolée, j'ai rencontré un petit problème technique. Pourriez-vous reformuler votre question ? 🙏",
+        text: "I'm sorry, I encountered a small technical issue. Could you please rephrase your question? 🙏",
         isUser: false,
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -179,7 +179,7 @@ const ChatWindow: React.FC = () => {
     }
   };
 
-  const textDirection = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+  const textDirection = 'ltr'; // Always left-to-right for English
 
   // Si le rendu est côté serveur ou que le composant n'est pas monté, retourner null ou un placeholder
   if (!isClient) {

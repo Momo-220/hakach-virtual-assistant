@@ -12,71 +12,35 @@ export async function GET() {
     position: 'bottom-right',
     primaryColor: '#f59e0b',
     backgroundColor: '#000000',
-    widgetTitle: 'Assistant Hakach Transfert',
-    defaultLanguage: 'fr',
+    widgetTitle: 'Hakach Transfer Assistant',
+    defaultLanguage: 'en',
     supportedLanguages: {
-      fr: 'Français',
-      en: 'English',
-      es: 'Español',
-      de: 'Deutsch',
-      ar: 'العربية'
+      en: 'English'
     }
   };
 
   // Messages de bienvenue par langue
   const welcomeMessages = {
-    fr: "Bonjour ! Je suis l'assistant virtuel de Hakach Transfert. Comment puis-je vous aider avec vos transferts d'argent aujourd'hui ?",
-    en: "Hello! I am the Hakach Transfert virtual assistant. How can I help you with your money transfers today?",
-    es: "¡Hola! Soy el asistente virtual de Hakach Transfert. ¿Cómo puedo ayudarte con tus transferencias de dinero hoy?",
-    de: "Hallo! Ich bin der virtuelle Assistent von Hakach Transfert. Wie kann ich Ihnen heute bei Ihren Geldüberweisungen helfen?",
-    ar: "مرحبًا! أنا المساعد الافتراضي لخدمة حكاش للتحويلات. كيف يمكنني مساعدتك في تحويلاتك المالية اليوم؟"
+    en: "Hello! I am the Hakach Transfer virtual assistant. How can I help you with your money transfers today?"
   };
 
   // Messages d'erreur par langue
   const errorMessages = {
-    fr: "Désolé, je n'ai pas pu traiter votre demande. Veuillez réessayer plus tard.",
-    en: "Sorry, I could not process your request. Please try again later.",
-    es: "Lo siento, no pude procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.",
-    de: "Entschuldigung, ich konnte Ihre Anfrage nicht verarbeiten. Bitte versuchen Sie es später noch einmal.",
-    ar: "عذرًا، لم أتمكن من معالجة طلبك. يرجى المحاولة مرة أخرى لاحقًا."
+    en: "Sorry, I could not process your request. Please try again later."
   };
 
   // Textes de l'interface par langue
   const uiTexts = {
-    fr: {
-      placeholder: "Posez votre question...",
-      thinking: "Je réfléchis...",
-      selectLanguage: "Changer de langue"
-    },
     en: {
       placeholder: "Ask your question...",
       thinking: "I'm thinking...",
       selectLanguage: "Change language"
-    },
-    es: {
-      placeholder: "Haz tu pregunta...",
-      thinking: "Estoy pensando...",
-      selectLanguage: "Cambiar idioma"
-    },
-    de: {
-      placeholder: "Stellen Sie Ihre Frage...",
-      thinking: "Ich denke nach...",
-      selectLanguage: "Sprache ändern"
-    },
-    ar: {
-      placeholder: "اطرح سؤالك...",
-      thinking: "أنا أفكر...",
-      selectLanguage: "تغيير اللغة"
     }
   };
 
   // Icônes pour les langues
   const languageIcons = {
-    fr: "🇫🇷",
-    en: "🇬🇧",
-    es: "🇪🇸",
-    de: "🇩🇪",
-    ar: "🇸🇦"
+    en: "🇬🇧"
   };
 
   // Widget singleton
@@ -93,7 +57,7 @@ export async function GET() {
       this.container = null;
       this.chatWindow = null;
       this.messagesContainer = null;
-      this.currentLanguage = this.config.defaultLanguage || 'fr';
+      this.currentLanguage = this.config.defaultLanguage || 'en';
       
       this.init();
     }
@@ -117,7 +81,7 @@ export async function GET() {
 
       // Ajouter un message de bienvenue
       this.addMessage({
-        text: welcomeMessages[this.currentLanguage] || welcomeMessages.fr,
+        text: welcomeMessages[this.currentLanguage] || welcomeMessages.en,
         isUser: false
       });
     }
@@ -421,38 +385,7 @@ export async function GET() {
           0%, 100% { transform: scale(0.7); opacity: 0.5; }
           50% { transform: scale(1); opacity: 1; }
         }
-        
-        /* Styles RTL pour la langue arabe */
-        [dir="rtl"] .av-message.user {
-          margin-left: 0;
-          margin-right: auto;
-          border-top-right-radius: 12px;
-          border-top-left-radius: 0;
-        }
-        [dir="rtl"] .av-message.bot {
-          margin-right: 0;
-          margin-left: auto;
-          border-top-left-radius: 12px;
-          border-top-right-radius: 0;
-        }
-        [dir="rtl"] .av-chat-header-icon {
-          margin-right: 0;
-          margin-left: 12px;
-        }
-        [dir="rtl"] .av-language-flag {
-          margin-right: 0;
-          margin-left: 8px;
-        }
-        [dir="rtl"] .av-thinking-spinner {
-          margin-right: 0;
-          margin-left: 8px;
-        }
-        [dir="rtl"] .av-input {
-          border-radius: 0 20px 20px 0;
-        }
-        [dir="rtl"] .av-send-button {
-          border-radius: 20px 0 0 20px;
-        }
+
       \`;
       document.head.appendChild(style);
     }
@@ -624,51 +557,17 @@ export async function GET() {
       // Ajouter au document
       document.body.appendChild(this.container);
     }
-    
-    // Mettre à jour la direction du texte en fonction de la langue
-    updateTextDirection() {
-      const isRtl = this.currentLanguage === 'ar';
-      this.chatWindow.dir = isRtl ? 'rtl' : 'ltr';
-    }
+
     
     // Obtenir le texte de l'interface dans la langue actuelle
     getUiText(key) {
-      return uiTexts[this.currentLanguage]?.[key] || uiTexts.fr[key];
+      return uiTexts[this.currentLanguage]?.[key] || uiTexts.en[key];
     }
     
-    // Changer la langue de l'interface
+    // Language is always English, so this method is simplified
     changeLanguage(langCode) {
-      if (this.config.supportedLanguages[langCode]) {
-        this.currentLanguage = langCode;
-        
-        // Mettre à jour la direction du texte
-        this.updateTextDirection();
-        
-        // Mettre à jour l'indicateur de langue
-        const currentLanguageIndicator = this.container.querySelector('.av-current-language');
-        if (currentLanguageIndicator) {
-          currentLanguageIndicator.innerHTML = \`
-            <span class="av-language-flag">\${languageIcons[this.currentLanguage]}</span>
-            <span>\${this.config.supportedLanguages[this.currentLanguage]}</span>
-          \`;
-        }
-        
-        // Mettre à jour les classes actives dans le menu des langues
-        const languageOptions = this.container.querySelectorAll('.av-language-option');
-        languageOptions.forEach(option => {
-          if (option.textContent.includes(this.config.supportedLanguages[langCode])) {
-            option.classList.add('active');
-          } else {
-            option.classList.remove('active');
-          }
-        });
-        
-        // Mettre à jour le placeholder de l'entrée
-        const input = this.container.querySelector('.av-input');
-        if (input) {
-          input.placeholder = this.getUiText('placeholder');
-        }
-      }
+      // Language is always English
+      this.currentLanguage = 'en';
     }
 
     toggleChat() {
@@ -717,50 +616,8 @@ export async function GET() {
     }
 
     async detectLanguage(text) {
-      try {
-        // Appeler l'API Gemini pour détecter la langue
-        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-goog-api-key': this.config.apiKey
-          },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  { 
-                    text: \`
-                    Détecte la langue utilisée dans ce texte et réponds uniquement avec le code ISO de la langue (fr, en, es, de, ar) sans explication supplémentaire.
-                    
-                    Texte: "\${text}"
-                    
-                    Réponds uniquement avec "fr", "en", "es", "de", ou "ar".
-                    \`
-                  }
-                ]
-              }
-            ]
-          })
-        });
-        
-        if (!response.ok) {
-          return this.currentLanguage;
-        }
-        
-        const data = await response.json();
-        const detectedLang = data.candidates[0].content.parts[0].text.trim().toLowerCase();
-        
-        // Vérifier si la langue détectée est prise en charge
-        if (this.config.supportedLanguages[detectedLang]) {
-          return detectedLang;
-        }
-        
-        return this.currentLanguage;
-      } catch (error) {
-        console.error('Erreur lors de la détection de la langue:', error);
-        return this.currentLanguage;
-      }
+      // Always return English since it's the only supported language
+      return 'en';
     }
 
     async sendMessage(text) {
@@ -785,13 +642,8 @@ export async function GET() {
       this.scrollToBottom();
       
       try {
-        // Détecter la langue du message
-        const detectedLanguage = await this.detectLanguage(text);
-        
-        // Si la langue détectée est différente de la langue actuelle, changer la langue
-        if (detectedLanguage !== this.currentLanguage) {
-          this.changeLanguage(detectedLanguage);
-        }
+        // Language is always English
+        const detectedLanguage = 'en';
         
         // Attendre un peu pour simuler la réflexion
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -808,23 +660,22 @@ export async function GET() {
           .join('\\n\\n');
           
         const prompt = \`
-Vous êtes l'assistant virtuel élégant de Hakach Transfert, une plateforme premium de transfert d'argent sécurisée. Voici une base de connaissances sur les services Hakach :
+You are the elegant virtual assistant for Hakach Transfer, a premium secure money transfer platform. Here is a knowledge base about Hakach services:
 
 \${context}
 
-L'utilisateur parle en \${this.config.supportedLanguages[this.currentLanguage]}.
-Question de l'utilisateur : \${text}
+User question: \${text}
 
-Si la question est liée à un élément de la base de connaissances, répondez en utilisant ces informations.
-Si la question n'est pas liée aux services de transfert d'argent ou à Hakach, répondez poliment que vous êtes spécialisé dans les services de transfert d'argent Hakach et demandez comment vous pouvez aider avec ces services.
+If the question is related to an item in the knowledge base, respond using this information.
+If the question is not related to money transfer services or Hakach, politely respond that you specialize in Hakach money transfer services and ask how you can help with these services.
 
-Gardez ces directives à l'esprit :
-- Adoptez un ton professionnel mais chaleureux, comme un conseiller financier de confiance
-- Soyez concis et précis dans vos réponses
-- Utilisez un langage simple et accessible
-- Montrez que vous êtes là pour aider l'utilisateur avec ses transferts d'argent
-- Évitez le jargon technique sauf si nécessaire
-- Répondez TOUJOURS dans la même langue que celle utilisée par l'utilisateur (\${this.config.supportedLanguages[this.currentLanguage]})
+Keep these guidelines in mind:
+- Adopt a professional but warm tone, like a trusted financial advisor
+- Be concise and precise in your responses
+- Use simple and accessible language
+- Show that you are there to help the user with their money transfers
+- Avoid technical jargon unless necessary
+- ALWAYS respond in English
 \`;
 
         // Appeler l'API Gemini
@@ -878,7 +729,7 @@ Gardez ces directives à l'esprit :
         
         // Ajouter un message d'erreur
         this.addMessage({ 
-          text: errorMessages[this.currentLanguage] || errorMessages.fr, 
+          text: errorMessages[this.currentLanguage] || errorMessages.en, 
           isUser: false 
         });
       } finally {
