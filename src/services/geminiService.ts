@@ -19,29 +19,29 @@ export const welcomeMessages = {
   en: `Hello! I'm your Hakach Transfer assistant. I can help you with money transfers, account questions, fees, supported countries, and more. What would you like to know?`
 };
 
-// Réponses équilibrées - amicales mais professionnelles
+// Réponses adaptées selon le contexte
 export const personalizedResponses = {
   greeting: {
     en: [
-      "Hello! How can I help you today?",
-      "Hi there! What can I assist you with?",
-      "Welcome! What would you like to know about Hakach Transfer?"
+      "Hello there!",
+      "Hi! Welcome!",
+      "Hey there!"
     ]
   },
   
   understanding: {
     en: [
-      "I understand. Let me help you with that.",
-      "Got it! Here's what you need to know.",
-      "That's a great question. Here's the answer."
+      "I understand your question. Let me provide you with detailed information about this.",
+      "That's a great question! Here's everything you need to know about this topic.",
+      "I can definitely help you with that. Let me give you a comprehensive answer."
     ]
   },
   
   closing: {
     en: [
-      "Is there anything else I can help you with?",
-      "Do you have any other questions?",
-      "Need help with anything else?"
+      "Is there anything else about Hakach Transfer that you'd like to know more about?",
+      "Do you have any other questions about our money transfer services?",
+      "I'm here to help with any other questions you might have about transfers, fees, or our services."
     ]
   }
 };
@@ -72,24 +72,24 @@ export async function queryGemini(
 
 
 
-    // Construire un prompt équilibré pour des réponses informatives mais concises
+    // Construire un prompt avec règles spécifiques pour salutations vs questions
     const prompt = `
-You are a helpful Hakach Transfer assistant. Provide informative but concise answers.
+You are a helpful Hakach Transfer assistant.
 
 Knowledge Base:
 ${context}
 
 User Question: ${question}
 
-GUIDELINES:
-- Give complete, helpful answers (3-5 sentences when needed)
-- Use knowledge base information thoroughly
+IMPORTANT RULES:
+- IF this is just a greeting (hello, hi, hey, bonjour, salut, etc.): Respond with ONLY 2-3 words like "Hello there!" or "Hi! Welcome!"
+- IF this is a real question: Give detailed, informative answers (minimum 3-4 sentences)
+- Use knowledge base information thoroughly with complete explanations
 - Be friendly and professional
-- Include relevant details without being verbose
-- For greetings: respond warmly but briefly
+- Include relevant details, examples, and context
 - For unrelated questions: "I specialize in Hakach money transfers. How can I assist you with our services?"
 
-Provide a helpful response:`;
+Response (follow the greeting vs question rules strictly):`;
 
     const result = await model.generateContent(prompt);
     const response = result.response.text();

@@ -667,15 +667,16 @@ You are a helpful virtual assistant for Hakach Transfer. Here is a knowledge bas
 User question: \${text}
 
 RESPONSE REQUIREMENTS:
-- Give clear, informative answers (3-5 sentences when needed)
-- Be direct but include helpful details
+- SPECIAL CASE - If this is just a greeting (hello, hi, hey, bonjour, salut, etc.): Respond with ONLY 2-3 words like "Hello there!" or "Hi! Welcome!" 
+- For ALL OTHER questions: Give detailed, informative answers (minimum 3-4 sentences)
+- Be direct but include helpful details and context
 - Use a friendly but professional tone
-- Provide complete information without being verbose
+- Provide complete information with examples when helpful
 - Use bullet points for multiple items when appropriate
-- If the question is about Hakach services, answer thoroughly from the knowledge base
+- If the question is about Hakach services, answer thoroughly from the knowledge base with full details
 - If unrelated to money transfers, politely redirect: "I specialize in Hakach money transfers. How can I help you with our services?"
 
-ALWAYS respond in English with sufficient detail to be helpful.
+ALWAYS respond in English. For greetings: 2-3 words max. For questions: 3-4 sentences minimum.
 \`;
 
         // Appeler l'API Gemini
