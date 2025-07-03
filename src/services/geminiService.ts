@@ -16,32 +16,32 @@ export const supportedLanguages: Record<SupportedLanguage, string> = {
 
 // Messages de bienvenue par langue
 export const welcomeMessages = {
-  en: `Hello! I'm your Hakach Transfer assistant. What do you need help with?`
+  en: `Hello! I'm your Hakach Transfer assistant. I can help you with money transfers, account questions, fees, supported countries, and more. What would you like to know?`
 };
 
-// Réponses directes et concises
+// Réponses équilibrées - amicales mais professionnelles
 export const personalizedResponses = {
   greeting: {
     en: [
-      "Hi!",
-      "Hello!",
-      "Hey there!"
+      "Hello! How can I help you today?",
+      "Hi there! What can I assist you with?",
+      "Welcome! What would you like to know about Hakach Transfer?"
     ]
   },
   
   understanding: {
     en: [
-      "Got it.",
-      "Understood.",
-      "Clear."
+      "I understand. Let me help you with that.",
+      "Got it! Here's what you need to know.",
+      "That's a great question. Here's the answer."
     ]
   },
   
   closing: {
     en: [
-      "Anything else?",
-      "Need more help?",
-      "Other questions?"
+      "Is there anything else I can help you with?",
+      "Do you have any other questions?",
+      "Need help with anything else?"
     ]
   }
 };
@@ -72,24 +72,24 @@ export async function queryGemini(
 
 
 
-    // Construire un prompt concis pour des réponses directes
+    // Construire un prompt équilibré pour des réponses informatives mais concises
     const prompt = `
-You are a Hakach Transfer assistant. Give SHORT, DIRECT answers.
+You are a helpful Hakach Transfer assistant. Provide informative but concise answers.
 
 Knowledge Base:
 ${context}
 
 User Question: ${question}
 
-RULES:
-- Maximum 2-3 sentences
-- Use knowledge base if relevant
-- No marketing language
-- Be factual and brief
-- For greetings: respond with just "Hello!" or "Hi!"
-- For unrelated questions: "I help with Hakach money transfers only."
+GUIDELINES:
+- Give complete, helpful answers (3-5 sentences when needed)
+- Use knowledge base information thoroughly
+- Be friendly and professional
+- Include relevant details without being verbose
+- For greetings: respond warmly but briefly
+- For unrelated questions: "I specialize in Hakach money transfers. How can I assist you with our services?"
 
-Answer directly:`;
+Provide a helpful response:`;
 
     const result = await model.generateContent(prompt);
     const response = result.response.text();
@@ -103,9 +103,9 @@ Answer directly:`;
   } catch (error) {
     console.error('Erreur lors de la requête à l\'API Gemini:', error);
     
-    // Messages d'erreur concis
+    // Messages d'erreur informatifs
     const errorMessages: Record<SupportedLanguage, string> = {
-      en: "Technical issue. Please try again."
+      en: "I'm experiencing a technical issue right now. Please try asking your question again, and I'll do my best to help you."
     };
     
     return errorMessages[language];

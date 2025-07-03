@@ -21,12 +21,12 @@ export async function GET() {
 
   // Messages de bienvenue par langue
   const welcomeMessages = {
-    en: "Hi! I help with Hakach transfers. What do you need?"
+    en: "Hello! I'm your Hakach Transfer assistant. I can help you with money transfers, account setup, fees, exchange rates, and more. What would you like to know?"
   };
 
   // Messages d'erreur par langue
   const errorMessages = {
-    en: "Error occurred. Try again."
+    en: "I'm sorry, I couldn't process your request right now. Please try again in a moment."
   };
 
   // Textes de l'interface par langue
@@ -660,22 +660,22 @@ export async function GET() {
           .join('\\n\\n');
           
         const prompt = \`
-You are a direct and efficient virtual assistant for Hakach Transfer. Here is a knowledge base about Hakach services:
+You are a helpful virtual assistant for Hakach Transfer. Here is a knowledge base about Hakach services:
 
 \${context}
 
 User question: \${text}
 
 RESPONSE REQUIREMENTS:
-- Give SHORT, DIRECT answers (maximum 2-3 sentences)
-- NO lengthy explanations or marketing language
-- NO greetings or pleasantries unless specifically asked
-- Get straight to the point
-- Use bullet points for multiple items when needed
-- If the question is about Hakach services, answer directly from the knowledge base
-- If unrelated to money transfers, simply say: "I help with Hakach money transfers only. What do you need to know?"
+- Give clear, informative answers (3-5 sentences when needed)
+- Be direct but include helpful details
+- Use a friendly but professional tone
+- Provide complete information without being verbose
+- Use bullet points for multiple items when appropriate
+- If the question is about Hakach services, answer thoroughly from the knowledge base
+- If unrelated to money transfers, politely redirect: "I specialize in Hakach money transfers. How can I help you with our services?"
 
-ALWAYS respond in English and be BRIEF.
+ALWAYS respond in English with sufficient detail to be helpful.
 \`;
 
         // Appeler l'API Gemini
