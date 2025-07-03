@@ -16,44 +16,32 @@ export const supportedLanguages: Record<SupportedLanguage, string> = {
 
 // Messages de bienvenue par langue
 export const welcomeMessages = {
-  en: `👋 Hello!
-I am Hakach, your virtual assistant.
-
-I'm here to assist you with all your money transfers. Feel free to ask me any questions about our services, rates, or how transfers work. How can I help you today? 😊`
+  en: `Hello! I'm your Hakach Transfer assistant. What do you need help with?`
 };
 
-// Ajouter des réponses plus humaines et chaleureuses
+// Réponses directes et concises
 export const personalizedResponses = {
   greeting: {
     en: [
-      "Wonderful to see you! 💫",
-      "Happy to welcome you! ✨",
-      "Delighted to have you here! 🌟",
-      "Hello there! How are you doing today? 😊",
-      "Hi! I hope you're having a great day! 🌸",
-      "Hey! What can I help you with? 💝"
+      "Hi!",
+      "Hello!",
+      "Hey there!"
     ]
   },
   
   understanding: {
     en: [
-      "I completely understand what you need 💭",
-      "Ah yes, I see exactly what you mean! 📝",
-      "Got it, that's a great question! ✨",
-      "I understand your concern perfectly 🤔",
-      "Perfect, let me explain that for you! 💡",
-      "Of course, it's totally normal to wonder about this! 😊"
+      "Got it.",
+      "Understood.",
+      "Clear."
     ]
   },
   
   closing: {
     en: [
-      "Is there anything else I can help you with? I'm all ears! 🌟",
-      "Please don't hesitate if you have more questions! 💫",
-      "I'm here if you'd like to know more! ✨",
-      "Do you need any other information? I'd be happy to help you further! 🤗",
-      "If anything else is on your mind, just let me know! 💝",
-      "I'm here to support you, don't hesitate! 🌸"
+      "Anything else?",
+      "Need more help?",
+      "Other questions?"
     ]
   }
 };
@@ -82,41 +70,26 @@ export async function queryGemini(
       .map((item) => `Q: ${item.question}\nR: ${item.answer}`)
       .join('\n\n');
 
-    // Obtenir une réponse de compréhension aléatoire
-    const understandingResponse = getRandomResponse('understanding', language);
 
-    // Construire un prompt détaillé pour obtenir une réponse plus professionnelle et humaine
+
+    // Construire un prompt concis pour des réponses directes
     const prompt = `
-Tu es Sarah, une vraie conseillère financière expérimentée et bienveillante chez Hakach Transfert. Tu as plusieurs années d'expérience dans le domaine des transferts d'argent et tu adores aider tes clients.
+You are a Hakach Transfer assistant. Give SHORT, DIRECT answers.
 
-CONTEXTE - Base de connaissances de Hakach Transfert :
+Knowledge Base:
 ${context}
 
-PERSONNALITÉ DE SARAH :
-- Chaleureuse, empathique et professionnelle
-- Utilise un langage naturel et conversationnel
-- Ajoute des touches personnelles et émotionnelles appropriées
-- Reformule les informations techniques de manière accessible
-- Montre de l'intérêt genuine pour aider le client
-- Utilise des exemples concrets quand c'est pertinent
-- Évite les réponses robotiques ou trop formelles
+User Question: ${question}
 
-DIRECTIVES IMPORTANTES :
-1. NE JAMAIS copier-coller les réponses de la base de connaissances
-2. TOUJOURS reformuler avec tes propres mots de manière naturelle
-3. Ajouter des nuances émotionnelles et personnelles appropriées
-4. Utiliser des transitions fluides et des expressions naturelles
-5. Répondre UNIQUEMENT en ${supportedLanguages[language]}
-6. Adapter le ton selon le contexte (rassurant pour les problèmes, enthousiaste pour les avantages)
-7. Utiliser des émojis avec parcimonie mais de manière pertinente
-8. Montrer que tu comprends les préoccupations du client
-9. IMPÉRATIF : Donner des réponses COURTES et CONCISES (maximum 3-4 phrases)
-10. Aller droit au but tout en restant chaleureuse et humaine
-11. SPÉCIAL SALUTATIONS : Si c'est juste une salutation (bonjour, salut, hello, etc.), réponds avec 1-2 mots maximum de politesse (ex: "Bonjour ! 😊", "Salut ! ✨", "Hello ! 💫")
+RULES:
+- Maximum 2-3 sentences
+- Use knowledge base if relevant
+- No marketing language
+- Be factual and brief
+- For greetings: respond with just "Hello!" or "Hi!"
+- For unrelated questions: "I help with Hakach money transfers only."
 
-QUESTION DU CLIENT : ${question}
-
-Réponds comme Sarah le ferait naturellement, avec authenticité et chaleur humaine, en reformulant les informations de la base de connaissances de manière conversationnelle et personnalisée. GARDE TA RÉPONSE COURTE ET DIRECTE.`;
+Answer directly:`;
 
     const result = await model.generateContent(prompt);
     const response = result.response.text();
@@ -130,9 +103,9 @@ Réponds comme Sarah le ferait naturellement, avec authenticité et chaleur huma
   } catch (error) {
     console.error('Erreur lors de la requête à l\'API Gemini:', error);
     
-    // Messages d'erreur personnalisés par langue avec plus d'humanité
+    // Messages d'erreur concis
     const errorMessages: Record<SupportedLanguage, string> = {
-      en: "😔 Oh dear, I'm having a small technical hiccup right now... Could you ask me again? I'll do everything I can to help you! 🤗"
+      en: "Technical issue. Please try again."
     };
     
     return errorMessages[language];

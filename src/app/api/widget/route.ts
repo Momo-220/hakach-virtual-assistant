@@ -21,12 +21,12 @@ export async function GET() {
 
   // Messages de bienvenue par langue
   const welcomeMessages = {
-    en: "Hello! I am the Hakach Transfer virtual assistant. How can I help you with your money transfers today?"
+    en: "Hi! I help with Hakach transfers. What do you need?"
   };
 
   // Messages d'erreur par langue
   const errorMessages = {
-    en: "Sorry, I could not process your request. Please try again later."
+    en: "Error occurred. Try again."
   };
 
   // Textes de l'interface par langue
@@ -660,22 +660,22 @@ export async function GET() {
           .join('\\n\\n');
           
         const prompt = \`
-You are the elegant virtual assistant for Hakach Transfer, a premium secure money transfer platform. Here is a knowledge base about Hakach services:
+You are a direct and efficient virtual assistant for Hakach Transfer. Here is a knowledge base about Hakach services:
 
 \${context}
 
 User question: \${text}
 
-If the question is related to an item in the knowledge base, respond using this information.
-If the question is not related to money transfer services or Hakach, politely respond that you specialize in Hakach money transfer services and ask how you can help with these services.
+RESPONSE REQUIREMENTS:
+- Give SHORT, DIRECT answers (maximum 2-3 sentences)
+- NO lengthy explanations or marketing language
+- NO greetings or pleasantries unless specifically asked
+- Get straight to the point
+- Use bullet points for multiple items when needed
+- If the question is about Hakach services, answer directly from the knowledge base
+- If unrelated to money transfers, simply say: "I help with Hakach money transfers only. What do you need to know?"
 
-Keep these guidelines in mind:
-- Adopt a professional but warm tone, like a trusted financial advisor
-- Be concise and precise in your responses
-- Use simple and accessible language
-- Show that you are there to help the user with their money transfers
-- Avoid technical jargon unless necessary
-- ALWAYS respond in English
+ALWAYS respond in English and be BRIEF.
 \`;
 
         // Appeler l'API Gemini
